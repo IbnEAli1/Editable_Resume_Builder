@@ -1,57 +1,25 @@
-var form = document.getElementById("resumeForm");
-var resumePage = document.getElementById("resumePage");
-var resumePhoto = document.getElementById("resumePhoto");
-var resumeName = document.getElementById("resumeName");
-var resumeEmail = document.getElementById("resumeEmail");
-var resumePhone = document.getElementById("resumePhone");
-var resumeEducation = document.getElementById("resumeEducation");
-var resumeWorkExperience = document.getElementById("resumeWorkExperience");
-var resumeSkills = document.getElementById("resumeSkills");
-form.addEventListener("submit", function (event) {
-    var _a, _b;
-    event.preventDefault();
-    var name = document.getElementById("name").value.trim();
-    var fname = document.getElementById("fname").value.trim();
-    var phone = document.getElementById("phone").value.trim();
-    var email = document.getElementById("email").value.trim();
-    var degree = document.getElementById("degree").value.trim();
-    var skillsElements = document.querySelectorAll("#skills");
-    var educationElements = document.querySelectorAll("#education");
-    var experienceElements = document.querySelectorAll("#experience");
-    var photoInput = document.getElementById("photo");
-    var skills = Array.from(skillsElements)
-        .map(function (input) { return input.value.trim(); })
-        .filter(function (value) { return value; });
-    var education = Array.from(educationElements)
-        .map(function (input) { return input.value.trim(); })
-        .filter(function (value) { return value; });
-    var experiences = Array.from(experienceElements)
-        .map(function (input) { return input.value.trim(); })
-        .filter(function (value) { return value; });
-    var photoFile = ((_a = photoInput.files) === null || _a === void 0 ? void 0 : _a[0]) || null;
-    var photoURL = photoFile ? URL.createObjectURL(photoFile) : '';
-    resumePhoto.src = photoURL;
-    resumePhoto.alt = "".concat(name, "'s Profile Photo");
-    resumeName.innerHTML = "<strong>".concat(name, "</strong>");
-    resumeEmail.innerHTML = "<strong>Email:</strong> ".concat(email);
-    resumePhone.innerHTML = "<strong>Phone:</strong> ".concat(phone);
-    resumeEducation.innerHTML = education
-        .map(function (edu) { return "<p>".concat(edu, "</p>"); })
-        .join("");
-    resumeWorkExperience.innerHTML = experiences
-        .map(function (exp) { return "<p>".concat(exp, "</p>"); })
-        .join("");
-    resumeSkills.innerHTML = skills
-        .map(function (skill) { return "<p>".concat(skill, "</p>"); })
-        .join("");
-    (_b = document.querySelector(".container")) === null || _b === void 0 ? void 0 : _b.classList.add("hidden");
-    resumePage.classList.remove("hidden");
-});
-var backButton = document.getElementById("backButton");
-backButton.addEventListener("click", function () {
-    var _a;
-    form.reset();
-    resumePhoto.src = "";
-    (_a = document.querySelector(".container")) === null || _a === void 0 ? void 0 : _a.classList.remove("hidden");
-    resumePage.classList.add("hidden");
-});
+var resumeForm = document.getElementById('resumeForm');
+var resumeOutput = document.getElementById('resumeOutput');
+// Function to generate resume
+if (resumeForm && resumeOutput) {
+    resumeForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var name = document.getElementById('name').value;
+        var fname = document.getElementById('fname').value;
+        var dob = document.getElementById('dob').value;
+        var martial = document.getElementById('martial').value;
+        var gender = document.getElementById('gender').value;
+        var cnic = document.getElementById('cnic').value;
+        var email = document.getElementById('email').value;
+        var phone = document.getElementById('phone').value;
+        var address = document.getElementById('address').value;
+        var nationality = document.getElementById('nationality').value;
+        var skills = document.getElementById('skills').value;
+        // Generate HTML for the resume
+        var resumeHTML = "\n      <h2>Generated Resume</h2>\n      <p><strong>Full Name:</strong> ".concat(name, "</p>\n      <p><strong>Father's Name:</strong> ").concat(fname, "</p>\n      <p><strong>Date of Birth:</strong> ").concat(dob, "</p>\n      <p><strong>Marital Status:</strong> ").concat(martial, "</p>\n      <p><strong>Gender:</strong> ").concat(gender, "</p>\n      <p><strong>CNIC:</strong> ").concat(cnic, "</p>\n      <p><strong>Email:</strong> ").concat(email, "</p>\n      <p><strong>Phone:</strong> ").concat(phone, "</p>\n      <p><strong>Address:</strong> ").concat(address, "</p>\n      <p><strong>Nationality:</strong> ").concat(nationality, "</p>\n      <p><strong>Skills:</strong> ").concat(skills, "</p>\n    ");
+        resumeOutput.innerHTML = resumeHTML;
+    });
+}
+else {
+    console.log('Form or output div not found in the DOM!');
+}
