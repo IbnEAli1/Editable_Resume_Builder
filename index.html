@@ -16,10 +16,11 @@
         </h1>
         <form id="resumeForm">
             <!-- Personal Information -->
-            <fieldset>
+            <fieldset id="">
                 <legend>Personal Information</legend>
                 <label for="photo">Upload Photo:</label>
                 <input type="file" id="photo" name="photo" accept="image/*" required>
+                <img id="photoPreview" alt="Photo Preview" style="display: block; margin-top: 10px; max-width: 200px; max-height: 200px; border: 1px solid #ccc;">
 
                 <label for="name">Full Name:</label>
                 <input type="text" id="name" name="name" required>
@@ -69,7 +70,7 @@
             </fieldset>
 
             <!-- Experience -->
-            <fieldset>
+            <fieldset id="Experience">
                 <legend>Working Experience</legend>
                 <input type="text" id="experience_1" name="experience_1" placeholder="Company Name or 'Nil'" required>
                 <input type="number" id="experience_1_start" name="experience_1_start" placeholder="Start Year" required>
@@ -77,8 +78,8 @@
             </fieldset>
 
             <!-- Skills -->
-            <fieldset>
-                <legend>Skills</legend>
+            <fieldset id="skills">
+                <legend >Skills</legend>
                 <input type="text" id="skill_1" name="skills" placeholder="Skill 1" required>
                 <input type="text" id="skill_2" name="skills" placeholder="Skill 2">
                 <input type="text" id="skill_3" name="skills" placeholder="Skill 3">
@@ -87,7 +88,7 @@
             </fieldset>
 
             <!-- Languages -->
-            <fieldset>
+            <fieldset  id="languages">
                 <legend>Languages</legend>
                 <input type="text" id="language_1" name="languages" placeholder="Language 1" required>
                 <input type="text" id="language_2" name="languages" placeholder="Language 2">

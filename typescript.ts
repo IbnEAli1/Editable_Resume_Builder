@@ -1,11 +1,29 @@
 const resumeForm = document.getElementById('resumeForm') as HTMLFormElement | null;
 const resumeOutput = document.getElementById('resumeOutput') as HTMLDivElement | null;
+const photoInput = document.getElementById('photo') as HTMLInputElement | null;
+const photoPreview = document.getElementById('photoPreview') as HTMLImageElement | null;
 
+// Handle photo preview
+if (photoInput && photoPreview) {
+  photoInput.addEventListener('change', () => {
+    const file = photoInput.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (photoPreview) {
+          photoPreview.src = e.target?.result as string;
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+}
+
+// Function to generate resume
 if (resumeForm && resumeOutput) {
   resumeForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    // Personal Information
     const name = (document.getElementById('name') as HTMLInputElement).value;
     const fname = (document.getElementById('fname') as HTMLInputElement).value;
     const dob = (document.getElementById('dob') as HTMLInputElement).value;
@@ -17,17 +35,9 @@ if (resumeForm && resumeOutput) {
     const address = (document.getElementById('address') as HTMLInputElement).value;
     const nationality = (document.getElementById('nationality') as HTMLInputElement).value;
 
-    // Collect Skills
-    const skillInputs = document.querySelectorAll<HTMLInputElement>('[id^="skill_"]');
-    const skills = Array.from(skillInputs).map((input) => input.value).filter((skill) => skill).join(', ');
-
-    // Collect Languages
-    const languageInputs = document.querySelectorAll<HTMLInputElement>('[id^="language_"]');
-    const languages = Array.from(languageInputs).map((input) => input.value).filter((lang) => lang).join(', ');
-
-    // Generate Resume HTML
     const resumeHTML = `
       <h2>Generated Resume</h2>
+      <img src="${photoPreview?.src}" alt="Uploaded Photo" style="max-width: 200px; max-height: 200px; border: 1px solid #ccc;">
       <p><strong>Full Name:</strong> ${name}</p>
       <p><strong>Father's Name:</strong> ${fname}</p>
       <p><strong>Date of Birth:</strong> ${dob}</p>
@@ -38,13 +48,9 @@ if (resumeForm && resumeOutput) {
       <p><strong>Phone:</strong> ${phone}</p>
       <p><strong>Address:</strong> ${address}</p>
       <p><strong>Nationality:</strong> ${nationality}</p>
-      <p><strong>Skills:</strong> ${skills}</p>
-      <p><strong>Languages:</strong> ${languages}</p>
     `;
-
-    // Display Resume
     resumeOutput.innerHTML = resumeHTML;
   });
 } else {
-  console.error('Form or output div not found in the DOM!');
+  console.log('Form or output div not found in the DOM!');
 }
